@@ -68,3 +68,10 @@ header {
     justify-content: center;
     align-items: center;
   }
+
+  .buttonArea {
+    display: grid;
+    grid-template-columns: none;
+    gap: 10px;
+    margin: 20px 0;
+  }
