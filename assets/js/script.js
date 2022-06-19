@@ -18,3 +18,22 @@ var questions = [
         ]
     },
 ]
+
+var questionNumber;
+
+//DOM Objects
+var startButtonEl = document.getElementById("startButton");
+var questionContainerEl = document.getElementById("questionsContainer");
+var gamesInstructionsEl = document.getElementById("gameInstructions")
+
+
+//Event listeners
+startButtonEl.addEventListener("click", startGame);
+
+
+function startGame (){
+    startButtonEl.classList.add("hide");
+    gamesInstructionsEl.classList.add("hide");
+
+
+}
