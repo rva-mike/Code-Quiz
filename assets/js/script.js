@@ -25,15 +25,27 @@ var questionNumber;
 var startButtonEl = document.getElementById("startButton");
 var questionContainerEl = document.getElementById("questionsContainer");
 var gamesInstructionsEl = document.getElementById("gameInstructions")
+var questionEl = document.getElementById("question");
+
+
 
 
 //Event listeners
 startButtonEl.addEventListener("click", startGame);
 
 
-function startGame (){
+function startGame() {
     startButtonEl.classList.add("hide");
     gamesInstructionsEl.classList.add("hide");
+    questionNumber = 0;
+    questionContainerEl.classList.remove("hide");
+    showQuestion(questions[questionNumber]);
 
 
+}
+
+
+function showQuestion(question) {
+    questionEl.innerText = question.question;
+    
 }
