@@ -32,6 +32,8 @@ var questions = [
 //variables
 var questionNumber;
 var score = 0;
+var timer = 80;
+
 
 
 //DOM Objects
@@ -41,6 +43,10 @@ var gamesInstructionsEl = document.getElementById("gameInstructions")
 var questionEl = document.getElementById("question");
 var answerButtonsEl = document.getElementById("answers");
 var restartButtonEl = document.getElementById("restartButton")
+var highScoresButtonEl = document.getElementById("showScoresButton");
+var scoreAreaEl = document.getElementById("scoreArea");
+
+
 
 
 
@@ -49,14 +55,19 @@ var restartButtonEl = document.getElementById("restartButton")
 
 //Event listeners
 startButtonEl.addEventListener("click", startGame);
+restartButtonEl.addEventListener("click", restart);
 
 
 function startGame() {
     startButtonEl.classList.add("hide");
     gamesInstructionsEl.classList.add("hide");
-    questionNumber = 0;
+    answerButtonsEl.classList.remove("hide");
     questionContainerEl.classList.remove("hide");
+    scoreAreaEl.classList.add("hide");
+
+    questionNumber = 0;
     showQuestion(questions[questionNumber]);
+
 
 
 }
@@ -112,8 +123,6 @@ function gameOver() {
     answerButtonsEl.classList.remove("hide");
     questionNumber = 0;
     questionContainerEl.classList.remove("hide");
-    while (answerButtonsEl.firstChild) {
-      answerButtonsEl.removeChild(answerButtonsEl.firstChild);
-    }
+  
     showQuestion(questions[questionNumber]);
   }
