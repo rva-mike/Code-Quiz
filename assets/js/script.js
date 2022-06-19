@@ -1,22 +1,31 @@
 var questions = [
     {
-        question: "Inside which HTML element do we put the JavaScript?",
+        question: "What is the correct html tag to link your .js file",
         answers: [
-            { text: "javascript", correct: false },
-            { text: "script", correct: true },
-            { text: "js", correct: false },
-            { text: "java", correct: false }
+            { text: "<javascript>", correct: false },
+            { text: "<script>", correct: true },
+            { text: "<js>", correct: false },
+            { text: "<java>", correct: false }
         ]
     },
     {
-        question: "Where is the correct place to insert JavaScript?",
+        question: 'How do you write "Hello World" in an alert box?',
         answers: [
-            { text: "The Head Section", correct: false },
-            { text: "The Body Section", correct: false },
-            { text: "In an External File", correct: false },
-            { text: "All of the Above", correct: true }
+          { text: 'msg("Hello World");', correct: false },
+          { text: 'prompt("Hello World");', correct: false },
+          { text: 'alertBox("Hello World");', correct: false },
+          { text: 'alert("Hello World");', correct: true }
         ]
-    },
+      },
+    {
+        question: "What Characters Contains an Array?",
+        answers: [
+          { text: "< >", correct: false },
+          { text: "{ }", correct: false },
+          { text: "[ ]", correct: true },
+          { text: "# #", correct: false }
+        ]
+      }
 ]
 
 
