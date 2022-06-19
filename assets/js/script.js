@@ -19,6 +19,8 @@ var questions = [
     },
 ]
 
+
+//variables
 var questionNumber;
 
 //DOM Objects
@@ -26,6 +28,8 @@ var startButtonEl = document.getElementById("startButton");
 var questionContainerEl = document.getElementById("questionsContainer");
 var gamesInstructionsEl = document.getElementById("gameInstructions")
 var questionEl = document.getElementById("question");
+var answerButtonsEl = document.getElementById("answers");
+
 
 
 
@@ -46,6 +50,11 @@ function startGame() {
 
 
 function showQuestion(question) {
-    questionEl.innerText = question.question;
-    
+    questionEl.innerText = question.question; //question.question
+    question.answers.forEach(answer => {
+        var button = document.createElement("button");
+        button.innerText = answer.text;
+        button.classList.add("btn");
+        answerButtonsEl.appendChild(button);
+      });
 }
