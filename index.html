@@ -1,16 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Code Quiz</title>
-    <link rel="stylesheet" href="./assets/css/style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Code Quiz</title>
+  <link rel="stylesheet" href="./assets/css/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
 </head>
+
 <body>
-    
+
+  <header>
+    <span id="timerArea">Time Remaining: 80 seconds</span>
+    <button class="btn" id="showScoresButton">High Scores</button>
+  </header>
+
+  <main class="quiz-div">
+    <div class="quizArea">
+      <div class="quizHeader">
+        <h1>Coding Quiz Challenge</h1>
+        <p id="gameInstructions">Try to answer the following code-related questions within the time limit. Keep in mind
+          that
+          the incorrect answer will penalize your score/time by ten seconds!</p>
+      </div>
+
+      <section id="questionsContainer" class="hide">
+        <div id="question"></div>
+        <div id="answers" class="buttonArea"></div>
+      </section>
 
 
-    <script src="./assets/js/script.js"></script>
+
+      <section class="controls" id="controls">
+        <button class="start" id="startButton">Start</button>
+        <button class="restart hide" id="restartButton">Restart</button>
+      </section>
+    </div>
+  </main>
+
+  <script src="./assets/js/script.js"></script>
 </body>
+
 </html>
