@@ -11,21 +11,21 @@ var questions = [
     {
         question: 'How do you write "Hello World" in an alert box?',
         answers: [
-          { text: 'msg("Hello World");', correct: false },
-          { text: 'prompt("Hello World");', correct: false },
-          { text: 'alertBox("Hello World");', correct: false },
-          { text: 'alert("Hello World");', correct: true }
+            { text: 'msg("Hello World");', correct: false },
+            { text: 'prompt("Hello World");', correct: false },
+            { text: 'alertBox("Hello World");', correct: false },
+            { text: 'alert("Hello World");', correct: true }
         ]
-      },
+    },
     {
         question: "What Characters Contains an Array?",
         answers: [
-          { text: "< >", correct: false },
-          { text: "{ }", correct: false },
-          { text: "[ ]", correct: true },
-          { text: "# #", correct: false }
+            { text: "< >", correct: false },
+            { text: "{ }", correct: false },
+            { text: "[ ]", correct: true },
+            { text: "# #", correct: false }
         ]
-      }
+    }
 ]
 
 
@@ -51,15 +51,13 @@ var countdownEl = document.getElementById("timerArea");
 
 
 
-
-
-
 //Event listeners
 startButtonEl.addEventListener("click", startGame);
 restartButtonEl.addEventListener("click", restart);
 
 
-
+//function to start the game
+//called when start button is clicked, should run the function to display questions and the function to start the timer
 function startGame() {
     highScoresButtonEl.classList.add("hide");
     startButtonEl.classList.add("hide");
@@ -72,12 +70,14 @@ function startGame() {
     // scoreAreaEl.innerHTML = "";
     startClock();
     while (answerButtonsEl.firstChild) {
-      answerButtonsEl.removeChild(answerButtonsEl.firstChild);
+        answerButtonsEl.removeChild(answerButtonsEl.firstChild);
     }
     showQuestion(questions[questionNumber]);
-  }
+}
 
 
+//function to display the questions
+//should load one object from the questions array into the proper html elements, then run the function to collect answers
 function showQuestion(question) {
     questionEl.innerText = question.question;
     question.answers.forEach(answer => {
@@ -92,6 +92,10 @@ function showQuestion(question) {
     });
 }
 
+
+//function to collect answers
+//should listen for what answer the user clicks on, compare it to the correct answer, and decrease the timer if wrong. should then run the next question function
+//unless the current question is the last, then it should run the game over function
 function selectAnswer(event) {
     var selectedButton = event.target;
     if (!selectedButton.dataset.correct) {
@@ -108,6 +112,9 @@ function selectAnswer(event) {
     }
 }
 
+
+//function to clear the current question
+//should empty the HTML elements that are occupied with the currently displayed question
 function clearQuestion() {
     while (answerButtonsEl.firstChild) {
         answerButtonsEl.removeChild(answerButtonsEl.firstChild);
@@ -118,9 +125,9 @@ function gameOver() {
     clearQuestion();
     restartButtonEl.classList.remove("hide")
 
-  }
+}
 
-  function restart () {
+function restart() {
     restartButtonEl.classList.add("hide");
     highScoresButtonEl.classList.add("hide");
     startButtonEl.classList.add("hide");
@@ -128,19 +135,19 @@ function gameOver() {
     answerButtonsEl.classList.remove("hide");
     questionNumber = 0;
     questionContainerEl.classList.remove("hide");
-  
+
     showQuestion(questions[questionNumber]);
-  }
+}
 
 
-  //function to start the timer
+//function to start the timer
 //should run a countdown that is displayed in the HTML, when time is up, should run the game over function
 function startClock() {
     countdownEl.innerHTML = "Time Remaining: " + timer + " seconds";
     if (timer <= 0) {
-      gameOver();
+        gameOver();
     } else {
-      timer -= 1;
-      runningTimer = setTimeout(startClock, 1000);
+        timer -= 1;
+        runningTimer = setTimeout(startClock, 1000);
     }
-  }
+}
