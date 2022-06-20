@@ -45,6 +45,7 @@ var answerButtonsEl = document.getElementById("answers");
 var restartButtonEl = document.getElementById("restartButton")
 var highScoresButtonEl = document.getElementById("showScoresButton");
 var scoreAreaEl = document.getElementById("scoreArea");
+var countdownEl = document.getElementById("timerArea");
 
 
 
@@ -58,19 +59,23 @@ startButtonEl.addEventListener("click", startGame);
 restartButtonEl.addEventListener("click", restart);
 
 
+
 function startGame() {
+    highScoresButtonEl.classList.add("hide");
     startButtonEl.classList.add("hide");
-    gamesInstructionsEl.classList.add("hide");
-    answerButtonsEl.classList.remove("hide");
-    questionContainerEl.classList.remove("hide");
     scoreAreaEl.classList.add("hide");
-
+    gamesInstructionsEl.classList.add("hide");
+    // scoreAreaEl.classList.add("hide");
+    answerButtonsEl.classList.remove("hide");
     questionNumber = 0;
+    questionContainerEl.classList.remove("hide");
+    // scoreAreaEl.innerHTML = "";
+    startClock();
+    while (answerButtonsEl.firstChild) {
+      answerButtonsEl.removeChild(answerButtonsEl.firstChild);
+    }
     showQuestion(questions[questionNumber]);
-
-
-
-}
+  }
 
 
 function showQuestion(question) {
@@ -125,4 +130,17 @@ function gameOver() {
     questionContainerEl.classList.remove("hide");
   
     showQuestion(questions[questionNumber]);
+  }
+
+
+  //function to start the timer
+//should run a countdown that is displayed in the HTML, when time is up, should run the game over function
+function startClock() {
+    countdownEl.innerHTML = "Time Remaining: " + timer + " seconds";
+    if (timer <= 0) {
+      gameOver();
+    } else {
+      timer -= 1;
+      runningTimer = setTimeout(startClock, 1000);
+    }
   }
