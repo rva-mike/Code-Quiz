@@ -274,7 +274,7 @@ function gameOver() {
 
     // startButtonEl.classList.remove("hide");
     // startButtonEl.innerText = "Restart";
-    timer = 90;
+    timer = 80;
     score = 0;
 }
 
