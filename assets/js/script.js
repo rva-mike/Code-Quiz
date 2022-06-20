@@ -25,7 +25,7 @@ var questions = [
             { text: "[ ]", correct: true },
             { text: "# #", correct: false }
         ]
-    }
+    },
 ]
 
 
@@ -135,7 +135,10 @@ function restart() {
     answerButtonsEl.classList.remove("hide");
     questionNumber = 0;
     questionContainerEl.classList.remove("hide");
-
+    startClock();
+    while (answerButtonsEl.firstChild) {
+      answerButtonsEl.removeChild(answerButtonsEl.firstChild);
+    }
     showQuestion(questions[questionNumber]);
 }
 
@@ -151,3 +154,36 @@ function startClock() {
         runningTimer = setTimeout(startClock, 1000);
     }
 }
+
+
+function showResults() {
+    finalScore = timer;
+    if (finalScore < 0) {
+      finalScore = 0;
+    }
+    questionEl.innerText = "";
+    scoreAreaEl.classList.remove("hide");
+    answerButtonsEl.classList.add("hide");
+    scoreAreaEl.innerHTML = `Your score is <b>${finalScore}</b>! </br></br> Please enter your initials below to see the high scores.<div id="init">Initials: <input type="text" name="initials" id="initials" placeholder="Enter Your Initials"><button id="save-btn" class="save-btn btn" onclick="submitScores(event)" disabled>Save</button>`;
+    username = document.getElementById("initials");
+    saveButton = document.getElementById("save-btn");
+    username.addEventListener("keyup", function() {  //////KEY UP?????
+      saveButton.disabled = !username.value;
+    });
+  }
+
+
+  function gameOver() {
+    clearInterval(runningTimer);
+    countdownEl.innerHTML = "The quiz has ended!";
+    clearQuestion();
+    showResults();
+    restartButtonEl.classList.remove("hide")
+    // highScoresButtonEl.classList.remove("hide");
+  
+  
+    // startButtonEl.classList.remove("hide");
+    // startButtonEl.innerText = "Restart";
+    timer = 90;
+    score = 0;
+  }
