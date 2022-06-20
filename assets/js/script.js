@@ -31,18 +31,23 @@ var questions = [
 
 //variables
 var questionNumber;
-var score = 0;
 var timer = 80;
+var runningTimer;
+var username = "";
+var score = 0;
+var finalScore;
+
+
 
 
 
 //DOM Objects
 var startButtonEl = document.getElementById("startButton");
 var questionContainerEl = document.getElementById("questionsContainer");
-var gamesInstructionsEl = document.getElementById("gameInstructions")
+var gamesInstructionsEl = document.getElementById("gameInstructions");
 var questionEl = document.getElementById("question");
 var answerButtonsEl = document.getElementById("answers");
-var restartButtonEl = document.getElementById("restartButton")
+var restartButtonEl = document.getElementById("restartButton");
 var highScoresButtonEl = document.getElementById("showScoresButton");
 var scoreAreaEl = document.getElementById("scoreArea");
 var countdownEl = document.getElementById("timerArea");
@@ -101,6 +106,11 @@ function selectAnswer(event) {
     if (!selectedButton.dataset.correct) {
         timer = timer - 10;
         console.log(timer);
+        var incorrectMessage = "Wrong"
+        alert(incorrectMessage)
+    } else {
+        var correctMessage = "correct"
+        alert(correctMessage)
     }
     if (questionNumber == questions.length - 1) {
         gameOver();
@@ -111,6 +121,53 @@ function selectAnswer(event) {
         console.log(score);
     }
 }
+
+
+
+//QUIZ DOES NOT CONTINUE AFTER WRONG ANSWER, CAN ANSWER WRONG MULTIPLE TIMES? KEEP?
+
+// function selectAnswer(event) {
+//     var selectedButton = event.target;
+//     if (!selectedButton.dataset.correct) {
+//         timer = timer - 10;
+//         console.log(timer);
+//         var incorrectMessage = "Wrong"
+//         alert(incorrectMessage)
+//     } else {
+//         var correctMessage = "correct"
+//         alert(correctMessage)
+
+//         if (questionNumber == questions.length - 1) {
+//             gameOver();
+//         } else {
+//             clearQuestion();
+//             questionNumber++;
+//             showQuestion(questions[questionNumber]);
+//             console.log(score);
+//         }
+//     }
+// }
+
+
+
+
+
+
+
+//change color?
+// if (answer.correct) {
+//     button.dataset.correct = answer.correct
+// }
+
+// create p for correct/wonrg???
+// var correctMessage = document.createElement("p")
+//         document.createTextNode("CORRECT")
+//         correctMessage.appendChild("body")
+
+
+
+
+
 
 
 //function to clear the current question
@@ -137,7 +194,7 @@ function restart() {
     questionContainerEl.classList.remove("hide");
     startClock();
     while (answerButtonsEl.firstChild) {
-      answerButtonsEl.removeChild(answerButtonsEl.firstChild);
+        answerButtonsEl.removeChild(answerButtonsEl.firstChild);
     }
     showQuestion(questions[questionNumber]);
 }
@@ -159,7 +216,7 @@ function startClock() {
 function showResults() {
     finalScore = timer;
     if (finalScore < 0) {
-      finalScore = 0;
+        finalScore = 0;
     }
     questionEl.innerText = "";
     scoreAreaEl.classList.remove("hide");
@@ -167,23 +224,23 @@ function showResults() {
     scoreAreaEl.innerHTML = `Your score is <b>${finalScore}</b>! </br></br> Please enter your initials below to see the high scores.<div id="init">Initials: <input type="text" name="initials" id="initials" placeholder="Enter Your Initials"><button id="save-btn" class="save-btn btn" onclick="submitScores(event)" disabled>Save</button>`;
     username = document.getElementById("initials");
     saveButton = document.getElementById("save-btn");
-    username.addEventListener("keyup", function() {  //////KEY UP?????
-      saveButton.disabled = !username.value;
+    username.addEventListener("keyup", function () {  //////KEY UP?????
+        saveButton.disabled = !username.value;
     });
-  }
+}
 
 
-  function gameOver() {
+function gameOver() {
     clearInterval(runningTimer);
     countdownEl.innerHTML = "The quiz has ended!";
     clearQuestion();
     showResults();
     restartButtonEl.classList.remove("hide")
     // highScoresButtonEl.classList.remove("hide");
-  
-  
+
+
     // startButtonEl.classList.remove("hide");
     // startButtonEl.innerText = "Restart";
     timer = 90;
     score = 0;
-  }
+}
