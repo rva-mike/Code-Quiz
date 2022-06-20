@@ -1,6 +1,6 @@
 var questions = [
     {
-        question: "What is the correct html tag to link your .js file",
+        question: "What is the correct opening html tag to link your .js file",
         answers: [
             { text: "<javascript>", correct: false },
             { text: "<script>", correct: true },
@@ -18,12 +18,47 @@ var questions = [
         ]
     },
     {
-        question: "What Characters Contains an Array?",
+        question: "What characters contain an Array?",
         answers: [
             { text: "< >", correct: false },
             { text: "{ }", correct: false },
             { text: "[ ]", correct: true },
             { text: "# #", correct: false }
+        ]
+    },
+    {
+        question: "What is the correct way to create a DOM element object?",
+        answers: [
+            { text: 'document.createElement("li");', correct: true },
+            { text: 'document.querySelector("li")', correct: false },
+            { text: 'window.querySelector("li")', correct: false },
+            { text: 'createElement.document("li");', correct: false }
+        ]
+    },
+    {
+        question: "The DOM is a Web API",
+        answers: [
+            { text: 'True', correct: true },
+            { text: 'False', correct: false },
+            
+        ]
+    },
+    {
+        question: "Which of the following is *not* a DOM element method",
+        answers: [
+            { text: 'matches()', correct: false },
+            { text: 'setAttribute()', correct: false },
+            { text: 'getAttribute()', correct: false },
+            { text: 'removal()', correct: true }
+        ]
+    },
+    {
+        question: "Which method saves data to localStorage?",
+        answers: [
+            { text: 'localStorage.getItem()', correct: false },
+            { text: 'localStorage.setItem()', correct: true },
+            { text: 'getItem.localStorage()', correct: false },
+            { text: 'save.localStorage()', correct: false }
         ]
     },
 ]
