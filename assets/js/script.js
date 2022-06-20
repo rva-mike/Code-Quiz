@@ -39,8 +39,6 @@ var finalScore;
 
 
 
-
-
 //DOM Objects
 var startButtonEl = document.getElementById("startButton");
 var questionContainerEl = document.getElementById("questionsContainer");
@@ -52,13 +50,13 @@ var highScoresButtonEl = document.getElementById("showScoresButton");
 var scoreAreaEl = document.getElementById("scoreArea");
 var countdownEl = document.getElementById("timerArea");
 
-
-
-
+//LocalStorage Objects
+var highScores = JSON.parse(localStorage.getItem("highScores")) || [];
 
 //Event listeners
 startButtonEl.addEventListener("click", startGame);
 restartButtonEl.addEventListener("click", restart);
+highScoresButtonEl.addEventListener("click", displayScores);
 
 
 //function to start the game
@@ -106,11 +104,11 @@ function selectAnswer(event) {
     if (!selectedButton.dataset.correct) {
         timer = timer - 10;
         console.log(timer);
-        var incorrectMessage = "Wrong"
-        alert(incorrectMessage)
+        // var incorrectMessage = "Wrong"
+        // alert(incorrectMessage)
     } else {
-        var correctMessage = "correct"
-        alert(correctMessage)
+        // var correctMessage = "correct"
+        // alert(correctMessage)
     }
     if (questionNumber == questions.length - 1) {
         gameOver();
@@ -244,3 +242,52 @@ function gameOver() {
     timer = 90;
     score = 0;
 }
+
+
+
+//function to submit high scores
+//should grab the users score and initials and add it to the high scores object, ranked numerically, and run the function to display the high scores
+function submitScores() {
+    var score = {
+      score: finalScore,
+      name: username.value
+    };
+    highScores.push(score);
+    highScores.sort((a, b) => b.score - a.score);
+  
+    localStorage.setItem("highScores", JSON.stringify(highScores));
+    displayScores();
+  }
+
+
+
+
+//function to display high scores
+//should populate the HTML with a ranked display of the high scores and and provide the option to clear the scores via a function
+function displayScores() {
+    // clearInterval(runningTimer);
+    // countdownEl.innerHTML = "";
+    clearQuestion();
+    questionEl.innerText = "";
+    scoreAreaEl.classList.remove("hide");
+  
+    //using template literals to dynamically add html elements and attributes
+    scoreAreaEl.innerHTML = `<h2>High Scores</h2><ul id="highScoresList"></ul><button id="clearScores" class="btn" onclick="clearScores()">Clear Scores</button>`;
+    var highScoresList = document.getElementById("highScoresList");
+    highScoresList.innerHTML = highScores
+      .map(score => {
+        return `<li class="scoresList">${score.name} - ${score.score}</li>`;
+      })
+      .join(""); // DELTE ???
+    // startButtonEl.classList.remove("hide");
+  }
+
+
+  //function to clear high scores
+//should fire on click, and erase the values of the high scores object
+function clearScores() {
+    highScores = [];
+    highScoresList.innerHTML = "<p>*Scores have been Cleared*</p>";
+    // document.getElementById("clearScores").classList.add("hide");
+    localStorage.clear();
+  }
