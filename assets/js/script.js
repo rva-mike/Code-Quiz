@@ -73,7 +73,6 @@ var score = 0;
 var finalScore;
 
 
-
 //DOM Objects
 var startButtonEl = document.getElementById("startButton");
 var questionContainerEl = document.getElementById("questionsContainer");
@@ -107,9 +106,9 @@ function startGame() {
     questionContainerEl.classList.remove("hide");
     // scoreAreaEl.innerHTML = "";
     startClock();
-    while (answerButtonsEl.firstChild) {
-        answerButtonsEl.removeChild(answerButtonsEl.firstChild);
-    }
+    // while (answerButtonsEl.firstChild) {
+    //     answerButtonsEl.removeChild(answerButtonsEl.firstChild);
+    // }
     showQuestion(questions[questionNumber]);
 }
 
@@ -118,9 +117,10 @@ function startGame() {
 //should load one object from the questions array into the proper html elements, then run the function to collect answers
 function showQuestion(question) {
     questionEl.innerText = question.question;
+
     question.answers.forEach(answer => {
         var button = document.createElement("button");
-        button.innerText = answer.text;
+        button.textContent = answer.text;
         button.classList.add("btn");
         if (answer.correct) {
             button.dataset.correct = answer.correct;
@@ -139,11 +139,18 @@ function selectAnswer(event) {
     if (!selectedButton.dataset.correct) {
         timer = timer - 10;
         console.log(timer);
-        // var incorrectMessage = "Wrong"
+        document.getElementById("wrong").removeAttribute('class')
+        setTimeout(function(){
+            document.getElementById("wrong").setAttribute('class', 'hide')   
+        },1200 )
         // alert(incorrectMessage)
     } else {
         // var correctMessage = "correct"
         // alert(correctMessage)
+        document.getElementById("right").removeAttribute('class')
+        setTimeout(function(){
+            document.getElementById("right").setAttribute('class', 'hide')   
+        },1200 )
     }
     if (questionNumber == questions.length - 1) {
         gameOver();
@@ -184,9 +191,6 @@ function selectAnswer(event) {
 
 
 
-
-
-
 //change color?
 // if (answer.correct) {
 //     button.dataset.correct = answer.correct
@@ -196,9 +200,6 @@ function selectAnswer(event) {
 // var correctMessage = document.createElement("p")
 //         document.createTextNode("CORRECT")
 //         correctMessage.appendChild("body")
-
-
-
 
 
 
@@ -254,7 +255,11 @@ function showResults() {
     questionEl.innerText = "";
     scoreAreaEl.classList.remove("hide");
     answerButtonsEl.classList.add("hide");
-    scoreAreaEl.innerHTML = `Your score is <b>${finalScore}</b>! </br></br> Please enter your initials below to see the high scores.<div id="init">Initials: <input type="text" name="initials" id="initials" placeholder="Enter Your Initials"><button id="save-btn" class="save-btn btn" onclick="submitScores(event)" disabled>Save</button>`;
+    // scoreAreaEl.innerHTML = `Your score is <b>${finalScore}</b>! </br></br> Please enter your initials below to see the high scores.<div id="init">Initials: <input type="text" name="initials" id="initials" placeholder="Enter Your Initials"><button id="save-btn" class="save-btn btn" onclick="submitScores(event)" disabled>Save</button>`;
+    scoreAreaEl.innerHTML = `<p>Your score is <b>${finalScore}</b>!</p>
+    <p>Please enter your initials below to see the high scores.</p>
+    <div id="init">Initials: <input type="text" name="initials" id="initials" placeholder="Enter Your Initials"><button id="save-btn" class="save-btn btn" onclick="submitScores(event)" disabled>Save</button>
+    </div>`
     username = document.getElementById("initials");
     saveButton = document.getElementById("save-btn");
     username.addEventListener("keyup", function () {  //////KEY UP?????
@@ -277,7 +282,6 @@ function gameOver() {
     timer = 80;
     score = 0;
 }
-
 
 
 //function to submit high scores
@@ -305,6 +309,7 @@ function displayScores() {
     clearQuestion();
     questionEl.innerText = "";
     scoreAreaEl.classList.remove("hide");
+    gamesInstructionsEl.classList.add("hide")
   
     //using template literals to dynamically add html elements and attributes
     scoreAreaEl.innerHTML = `<h2>High Scores</h2><ul id="highScoresList"></ul><button id="clearScores" class="btn" onclick="clearScores()">Clear Scores</button>`;
