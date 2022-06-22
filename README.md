@@ -5,6 +5,7 @@ This is a Coding Quiz built with HTML, CSS, and JS. The quiz is started when the
 
 ## Links
 Live URL: https://rva-mike.github.io/Code-Quiz/
+
 Github URL: https://github.com/rva-mike/Code-Quiz
 
 ## Screenshot
