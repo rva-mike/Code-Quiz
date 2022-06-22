@@ -1,10 +1,11 @@
 # Code-Quiz
 
 ## Description
-This is a Code Quiz built with HTML, CSS, and JS. The quiz is started when the user clicks the 'start' button. After the 'start' button is clicked, a timer starts and a question with answer choices is displayed. If the answer is correct, a 'right!' message will display. If the answer is incorrect, a 'wrong!' message will display and 10 seconds is taken from the timer. After any answer selection is made, a new question and answers will appear. When all the questions have been answered or the timer runs out, the game will end. At the end of the game, your score, which is the amount of time still left on the timer, will be displayed. The user then has the options to save their score to the 'High Scores' and restart the game. The scores are stored locally in the browser. There is also an option to clear the 'High Scores' list. 
+This is a Coding Quiz built with HTML, CSS, and JS. The quiz is started when the user clicks the 'start' button. After the 'start' button is clicked, a timer starts and a question with answer choices is displayed. If the answer is correct, a 'right!' message will display. If the answer is incorrect, a 'wrong!' message will display and 10 seconds is taken from the timer. After any answer selection is made, a new question and answers will appear. When all the questions have been answered or the timer runs out, the game will end. At the end of the game, the user's score, which is the amount of time still left on the timer, will be displayed. The user then has the options to save their score to the 'High Scores' and restart the game. The scores are stored locally in the browser. There is also an option to clear the 'High Scores' list. 
 
 ## Links
-
+Live URL: https://rva-mike.github.io/Code-Quiz/
+Github URL: https://github.com/rva-mike/Code-Quiz
 
 ## Screenshot
 ![code-quiz-Screenshot1](https://user-images.githubusercontent.com/105617274/175098165-33d22e3f-0be2-4126-848e-adacd15bffe7.png)
