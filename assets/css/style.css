@@ -1,3 +1,4 @@
+/* universal selector  */
 *,
 *::before,
 *::after {
@@ -7,10 +8,10 @@
   padding: 0;
 }
 
+/* hide property  */
 .hide {
   display: none;
 }
-
 
 
 header {
@@ -20,8 +21,6 @@ header {
   padding: 15px;
 
 }
-
-
 
 body {
   font-size: 20px;
@@ -48,14 +47,8 @@ button:hover {
   color: orange;
 }
 
-#right {
-  color: green;
-}
 
-#wrong {
-  color: red;
-}
-
+/* quiz content start  */
 .quizHeader {
   display: flex;
   flex-direction: column;
@@ -100,6 +93,17 @@ button:hover {
   margin: 5px;
 }
 
+/* right and wrong message after answer  */
+#right {
+  color: green;
+}
+
+#wrong {
+  color: red;
+}
+ /* end of right and wrong message after answer */
+
+
 #clearScores {
   margin-top: 5px;
 }
@@ -123,6 +127,8 @@ h2 {
 h2 {
   margin-top: 15px;
 }
+/* end of quiz content  */
+
 
 footer {
   position: fixed;
@@ -134,7 +140,7 @@ footer {
   font-size: 13px;
 }
 
-
+/* media query  */
 @media only screen and (max-width: 555px) {
   .quizArea {
     margin-top: 10px;

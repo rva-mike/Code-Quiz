@@ -1,3 +1,4 @@
+//Questions
 var questions = [
     {
         question: "What is the correct opening html tag to link your .js file",
@@ -40,7 +41,7 @@ var questions = [
         answers: [
             { text: 'True', correct: true },
             { text: 'False', correct: false },
-            
+
         ]
     },
     {
@@ -84,13 +85,14 @@ var highScoresButtonEl = document.getElementById("showScoresButton");
 var scoreAreaEl = document.getElementById("scoreArea");
 var countdownEl = document.getElementById("timerArea");
 
-//LocalStorage Objects
+//LocalStorage
 var highScores = JSON.parse(localStorage.getItem("highScores")) || [];
 
 //Event listeners
 startButtonEl.addEventListener("click", startGame);
 restartButtonEl.addEventListener("click", restart);
 highScoresButtonEl.addEventListener("click", displayScores);
+
 
 
 //function to start the game
@@ -100,17 +102,13 @@ function startGame() {
     startButtonEl.classList.add("hide");
     scoreAreaEl.classList.add("hide");
     gamesInstructionsEl.classList.add("hide");
-    // scoreAreaEl.classList.add("hide");
     answerButtonsEl.classList.remove("hide");
     questionNumber = 0;
     questionContainerEl.classList.remove("hide");
-    // scoreAreaEl.innerHTML = "";
     startClock();
-    // while (answerButtonsEl.firstChild) {
-    //     answerButtonsEl.removeChild(answerButtonsEl.firstChild);
-    // }
     showQuestion(questions[questionNumber]);
 }
+
 
 
 //function to display the questions
@@ -131,6 +129,7 @@ function showQuestion(question) {
 }
 
 
+
 //function to collect answers
 //should listen for what answer the user clicks on, compare it to the correct answer, and decrease the timer if wrong. should then run the next question function
 //unless the current question is the last, then it should run the game over function
@@ -140,17 +139,14 @@ function selectAnswer(event) {
         timer = timer - 10;
         console.log(timer);
         document.getElementById("wrong").removeAttribute('class')
-        setTimeout(function(){
-            document.getElementById("wrong").setAttribute('class', 'hide')   
-        },1200 )
-        // alert(incorrectMessage)
+        setTimeout(function () {
+            document.getElementById("wrong").setAttribute('class', 'hide')
+        }, 1200)
     } else {
-        // var correctMessage = "correct"
-        // alert(correctMessage)
         document.getElementById("right").removeAttribute('class')
-        setTimeout(function(){
-            document.getElementById("right").setAttribute('class', 'hide')   
-        },1200 )
+        setTimeout(function () {
+            document.getElementById("right").setAttribute('class', 'hide')
+        }, 1200)
     }
     if (questionNumber == questions.length - 1) {
         gameOver();
@@ -164,7 +160,142 @@ function selectAnswer(event) {
 
 
 
-//QUIZ DOES NOT CONTINUE AFTER WRONG ANSWER, CAN ANSWER WRONG MULTIPLE TIMES? KEEP?
+//function to clear the current question
+//should empty the HTML elements that are occupied with the currently displayed question
+function clearQuestion() {
+    while (answerButtonsEl.firstChild) {
+        answerButtonsEl.removeChild(answerButtonsEl.firstChild);
+    }
+}
+
+
+
+//end of game function, calls ClearQuestions and displays restart function
+function gameOver() {
+    clearQuestion();
+    restartButtonEl.classList.remove("hide")
+}
+
+function restart() {
+    restartButtonEl.classList.add("hide");
+    highScoresButtonEl.classList.add("hide");
+    startButtonEl.classList.add("hide");
+    scoreAreaEl.classList.add("hide");
+    answerButtonsEl.classList.remove("hide");
+    questionNumber = 0;
+    questionContainerEl.classList.remove("hide");
+    startClock();
+    showQuestion(questions[questionNumber]);
+}
+
+
+
+//function to start the timer
+//should run a countdown that is displayed in the HTML, when time is up, should run the game over function
+function startClock() {
+    countdownEl.innerHTML = "Time Remaining: " + timer + " seconds";
+    if (timer <= 0) {
+        gameOver();
+    } else {
+        timer -= 1;
+        runningTimer = setTimeout(startClock, 1000);
+    }
+}
+
+
+
+//displays finals score and is called in gameOver func
+function showResults() {
+    finalScore = timer;
+    if (finalScore < 0) {
+        finalScore = 0;
+    }
+    questionEl.innerText = "";
+    scoreAreaEl.classList.remove("hide");
+    answerButtonsEl.classList.add("hide");
+    // scoreAreaEl.innerHTML = `Your score is <b>${finalScore}</b>! </br></br> Please enter your initials below to see the high scores.<div id="init">Initials: <input type="text" name="initials" id="initials" placeholder="Enter Your Initials"><button id="save-btn" class="save-btn btn" onclick="submitScores(event)" disabled>Save</button>`;
+    scoreAreaEl.innerHTML = `<p>Your score is <b>${finalScore}</b>!</p>
+    <p>Please enter your initials below to see the high scores.</p>
+    <div id="init">Initials: <input type="text" name="initials" id="initials" placeholder="Enter Your Initials"><button id="save-btn" class="save-btn btn" onclick="submitScores(event)" disabled>Save</button>
+    </div>`
+    username = document.getElementById("initials");
+    saveButton = document.getElementById("save-btn");
+    username.addEventListener("keyup", function () {  //////KEY UP?????
+        saveButton.disabled = !username.value;
+    });
+}
+
+
+
+
+function gameOver() {
+    clearInterval(runningTimer);
+    countdownEl.innerHTML = "The quiz has ended!";
+    clearQuestion();
+    showResults();
+    restartButtonEl.classList.remove("hide")
+
+    timer = 80;
+    score = 0;
+}
+
+
+
+
+//function to submit high scores
+//should grab the users score and initials and add it to the high scores object, ranked numerically, and run the function to display the high scores
+function submitScores() {
+    var score = {
+        score: finalScore,
+        name: username.value
+    };
+    highScores.push(score);
+    highScores.sort((a, b) => b.score - a.score);
+
+    localStorage.setItem("highScores", JSON.stringify(highScores));
+    displayScores();
+}
+
+
+
+
+//function to display high scores
+//should populate the HTML with a ranked display of the high scores and and provide the option to clear the scores via a function
+function displayScores() {
+
+    clearQuestion();
+    questionEl.innerText = "";
+    scoreAreaEl.classList.remove("hide");
+    gamesInstructionsEl.classList.add("hide")
+
+    //using template literal and innerHTML to add html elements and attributes
+    scoreAreaEl.innerHTML = `<h2>High Scores</h2><ul id="highScoresList"></ul><button id="clearScores" class="btn" onclick="clearScores()">Clear Scores</button>`;
+    var highScoresList = document.getElementById("highScoresList");
+    highScoresList.innerHTML = highScores
+        .map(score => {
+            return `<li class="scoresList">${score.name} - ${score.score}</li>`;
+        })
+        .join(""); //delete?
+}
+
+
+//function to clear high scores
+//should fire on click, and erase the values of the high scores object
+function clearScores() {
+    highScores = [];
+    highScoresList.innerHTML = "<p>*Scores have been Cleared*</p>";
+    localStorage.clear();
+}
+
+
+
+
+
+
+
+  //OLD CODE thought process, possible rework
+
+  //QUIZ DOES NOT CONTINUE AFTER WRONG ANSWER, CAN ANSWER WRONG MULTIPLE TIMES? KEEP? Hard-mode?
 
 // function selectAnswer(event) {
 //     var selectedButton = event.target;
@@ -187,147 +318,3 @@ function selectAnswer(event) {
 //         }
 //     }
 // }
-
-
-
-
-//change color?
-// if (answer.correct) {
-//     button.dataset.correct = answer.correct
-// }
-
-// create p for correct/wonrg???
-// var correctMessage = document.createElement("p")
-//         document.createTextNode("CORRECT")
-//         correctMessage.appendChild("body")
-
-
-
-
-//function to clear the current question
-//should empty the HTML elements that are occupied with the currently displayed question
-function clearQuestion() {
-    while (answerButtonsEl.firstChild) {
-        answerButtonsEl.removeChild(answerButtonsEl.firstChild);
-    }
-}
-
-function gameOver() {
-    clearQuestion();
-    restartButtonEl.classList.remove("hide")
-
-}
-
-function restart() {
-    restartButtonEl.classList.add("hide");
-    highScoresButtonEl.classList.add("hide");
-    startButtonEl.classList.add("hide");
-    scoreAreaEl.classList.add("hide");
-    answerButtonsEl.classList.remove("hide");
-    questionNumber = 0;
-    questionContainerEl.classList.remove("hide");
-    startClock();
-    while (answerButtonsEl.firstChild) {
-        answerButtonsEl.removeChild(answerButtonsEl.firstChild);
-    }
-    showQuestion(questions[questionNumber]);
-}
-
-
-//function to start the timer
-//should run a countdown that is displayed in the HTML, when time is up, should run the game over function
-function startClock() {
-    countdownEl.innerHTML = "Time Remaining: " + timer + " seconds";
-    if (timer <= 0) {
-        gameOver();
-    } else {
-        timer -= 1;
-        runningTimer = setTimeout(startClock, 1000);
-    }
-}
-
-
-function showResults() {
-    finalScore = timer;
-    if (finalScore < 0) {
-        finalScore = 0;
-    }
-    questionEl.innerText = "";
-    scoreAreaEl.classList.remove("hide");
-    answerButtonsEl.classList.add("hide");
-    // scoreAreaEl.innerHTML = `Your score is <b>${finalScore}</b>! </br></br> Please enter your initials below to see the high scores.<div id="init">Initials: <input type="text" name="initials" id="initials" placeholder="Enter Your Initials"><button id="save-btn" class="save-btn btn" onclick="submitScores(event)" disabled>Save</button>`;
-    scoreAreaEl.innerHTML = `<p>Your score is <b>${finalScore}</b>!</p>
-    <p>Please enter your initials below to see the high scores.</p>
-    <div id="init">Initials: <input type="text" name="initials" id="initials" placeholder="Enter Your Initials"><button id="save-btn" class="save-btn btn" onclick="submitScores(event)" disabled>Save</button>
-    </div>`
-    username = document.getElementById("initials");
-    saveButton = document.getElementById("save-btn");
-    username.addEventListener("keyup", function () {  //////KEY UP?????
-        saveButton.disabled = !username.value;
-    });
-}
-
-
-function gameOver() {
-    clearInterval(runningTimer);
-    countdownEl.innerHTML = "The quiz has ended!";
-    clearQuestion();
-    showResults();
-    restartButtonEl.classList.remove("hide")
-    // highScoresButtonEl.classList.remove("hide");
-
-
-    // startButtonEl.classList.remove("hide");
-    // startButtonEl.innerText = "Restart";
-    timer = 80;
-    score = 0;
-}
-
-
-//function to submit high scores
-//should grab the users score and initials and add it to the high scores object, ranked numerically, and run the function to display the high scores
-function submitScores() {
-    var score = {
-      score: finalScore,
-      name: username.value
-    };
-    highScores.push(score);
-    highScores.sort((a, b) => b.score - a.score);
-  
-    localStorage.setItem("highScores", JSON.stringify(highScores));
-    displayScores();
-  }
-
-
-
-
-//function to display high scores
-//should populate the HTML with a ranked display of the high scores and and provide the option to clear the scores via a function
-function displayScores() {
-    // clearInterval(runningTimer);
-    // countdownEl.innerHTML = "";
-    clearQuestion();
-    questionEl.innerText = "";
-    scoreAreaEl.classList.remove("hide");
-    gamesInstructionsEl.classList.add("hide")
-  
-    //using template literals to dynamically add html elements and attributes
-    scoreAreaEl.innerHTML = `<h2>High Scores</h2><ul id="highScoresList"></ul><button id="clearScores" class="btn" onclick="clearScores()">Clear Scores</button>`;
-    var highScoresList = document.getElementById("highScoresList");
-    highScoresList.innerHTML = highScores
-      .map(score => {
-        return `<li class="scoresList">${score.name} - ${score.score}</li>`;
-      })
-      .join(""); // DELTE ???
-    // startButtonEl.classList.remove("hide");
-  }
-
-
-  //function to clear high scores
-//should fire on click, and erase the values of the high scores object
-function clearScores() {
-    highScores = [];
-    highScoresList.innerHTML = "<p>*Scores have been Cleared*</p>";
-    // document.getElementById("clearScores").classList.add("hide");
-    localStorage.clear();
-  }

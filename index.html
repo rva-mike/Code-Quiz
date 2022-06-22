@@ -14,11 +14,13 @@
 
 <body>
 
+  <!-- header with timer and high scores button  -->
   <header>
     <span id="timerArea">Time Remaining: 80 seconds</span>
     <button class="btn" id="showScoresButton">High Scores</button>
   </header>
 
+  <!-- quiz content  -->
   <main class="quiz-div">
     <div class="quizArea">
       <div class="quizHeader">
@@ -28,6 +30,7 @@
           the incorrect answer will penalize your score/time by ten seconds!</p>
       </div>
 
+      <!-- questions container  -->
       <section id="questionsContainer" class="hide">
         <div id="question"></div>
         <div id="answers" class="buttonArea"></div>
@@ -36,7 +39,7 @@
       </section>
 
 
-
+      <!-- buttons and controls for quiz content -->
       <section class="controls" id="controls">
         <button class="start" id="startButton">Start</button>
         <button class="restart hide" id="restartButton">Restart</button>
@@ -51,7 +54,7 @@
   </main>
 
   <footer>
-  <p>Built by <span><a href="https://github.com/rva-mike">github.com/rva-mike</a></span></p>
+    <p>Built by <span><a href="https://github.com/rva-mike">github.com/rva-mike</a></span></p>
   </footer>
 
   <script src="./assets/js/script.js"></script>
