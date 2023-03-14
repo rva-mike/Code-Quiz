@@ -214,7 +214,7 @@ function showResults() {
     scoreAreaEl.classList.remove("hide");
     answerButtonsEl.classList.add("hide");
     // scoreAreaEl.innerHTML = `Your score is <b>${finalScore}</b>! </br></br> Please enter your initials below to see the high scores.<div id="init">Initials: <input type="text" name="initials" id="initials" placeholder="Enter Your Initials"><button id="save-btn" class="save-btn btn" onclick="submitScores(event)" disabled>Save</button>`;
-    scoreAreaEl.innerHTML = `<p>Your score is <b>${finalScore}</b>!</p>
+    scoreAreaEl.innerHTML = `<p><b>Your score is${finalScore}!</b></p>
     <p>Please enter your initials below to see the high scores.</p>
     <div id="init">Initials: <input type="text" name="initials" id="initials" placeholder="Enter Your Initials"><button id="save-btn" class="save-btn btn" onclick="submitScores(event)" disabled>Save</button>
     </div>`
